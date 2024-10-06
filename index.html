@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black And White Image</title>
+    <script src="https://www.lactame.com/lib/image-js/0.21.2/image.min.js"></script>
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
+    >
+</head>
+<body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href=".">
+            Deratek
+          </a>
+      
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+      
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item">
+              Home
+            </a>
+      
+            <a class="navbar-item">
+              Documentation
+            </a>
+      
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                More
+              </a>
+      
+              <div class="navbar-dropdown">
+                <a class="navbar-item">
+                  About
+                </a>
+                <a class="navbar-item is-selected">
+                  Jobs
+                </a>
+                <a class="navbar-item">
+                  Contact
+                </a>
+                <hr class="navbar-divider">
+                <a class="navbar-item">
+                  Report an issue
+                </a>
+              </div>
+            </div>
+          </div>
+      
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-primary">
+                  <strong>Sign up</strong>
+                </a>
+                <a class="button is-light">
+                  Log in
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+<br>
+<br>
+ 
+<div class="container">
+
+    <div class="file has-name">
+        <label class="file-label">
+          <input class="file-input" type="file" accept="image/*" onchange="uploadNow()" name="file1" id="file1"/>
+          <span class="file-cta">
+            <span class="file-icon">
+              <i class="fas fa-upload"></i>
+            </span>
+            <span class="file-label">Select image...</span>
+          </span>
+          <span class="file-name" id="file_name"></span>
+        </label>
+      </div>
+    
+      <figure class="image is-128x128">
+        <img id="display_img" src="https://bulma.io/assets/images/placeholders/128x128.png" />
+      </figure>
+
+      <hr>
+      <button class="button is-info" onclick="process()">Convert to Black & White</button>
+      
+      <figure class="image is-128x128"></figure>
+        <img id="display_result" src="https://bulma.io/assets/images/placeholders/128x128.png" />
+      </figure>
+</div>
+ 
+  <script>
+    var _upload = null;
+   function uploadNow(){
+        const [data] = file1.files
+        if (data) {
+            document.getElementById('display_img').src = URL.createObjectURL(data)
+
+            var name  = data.name;
+            document.getElementById('file_name').innerHTML = name;
+        }
+    }
+
+    async function process() {
+      let image = await IJS.Image.load(document.getElementById('display_img').src);
+
+      let grey = image.grey();
+     
+      document.getElementById('display_result').src = grey.toDataURL();
+    }
+  </script>
+    
+</body>
+</html>
