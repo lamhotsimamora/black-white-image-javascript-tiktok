@@ -93,10 +93,19 @@
       <figure class="image is-128x128">
         <img id="display_img" src="https://bulma.io/assets/images/placeholders/128x128.png" />
       </figure>
-
+      <br> <br>
       <hr>
       <button class="button is-info" onclick="process()">Convert to Black & White</button>
-      
+      <br> <br>
+      <article id="message" class="message is-small" style="display: none;">
+        <div class="message-header">
+          <p>Please Wait</p>
+          <button class="delete is-small" aria-label="delete"></button>
+        </div>
+        <div class="message-body">
+          Loading...
+        </div>
+      </article>
       <figure class="image is-128x128">
         <img id="display_result" src="https://bulma.io/assets/images/placeholders/128x128.png" />
       </figure>
@@ -104,6 +113,8 @@
  
   <script>
     var _upload = null;
+    var message = document.getElementById('message');
+
    function uploadNow(){
         const [data] = file1.files
         if (data) {
@@ -115,11 +126,13 @@
     }
 
     async function process() {
+      message.style.display = ""; 
       let image = await IJS.Image.load(document.getElementById('display_img').src);
 
       let grey = image.grey();
      
       document.getElementById('display_result').src = grey.toDataURL();
+      message.style.display = "none"; 
     }
   </script>
     
